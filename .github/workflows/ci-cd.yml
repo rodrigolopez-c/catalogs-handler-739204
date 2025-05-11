@@ -42,26 +42,26 @@ jobs:
               run: |
                 docker push ${{ env.CONTAINER_REGISTRY }}:latest
 
-            - name: SSH into EC2 and deploy Docker container
-              run : |
-                mkdir -p ~/.ssh
-                echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-                chmod 600 ~/.ssh/id_rsa
-
-                ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_PUBLIC_IP }} << EOF
-
-                    docker stop catalogs-handler-739204 || true
-                    docker rm catalogs-handler-739204 || true
-
-                    docker pull ${{ env.CONTAINER_REGISTRY }}:latest
-
-                    docker run -d --name catalogs-handler-739204 \
-                    -e AWS_BUCKET_NAME=${{ env.AWS_BUCKET_NAME }} \
-                    -e CLIENTS_TABLE_NAME=${{ env.CLIENTS_TABLE_NAME }} \
-                    -e PRODUCTS_TABLE_NAME=${{ env.PRODUCTS_TABLE_NAME }} \
-                    -e ADDRESSES_TABLE_NAME=${{ env.ADDRESSES_TABLE_NAME }} \
-                    -p 3001:3001 \
-                    ${{ env.CONTAINER_REGISTRY }}:latest
-
-                    docker logs catalogs-handler-739204
-                EOF
+#            - name: SSH into EC2 and deploy Docker container
+#             run : |
+#              mkdir -p ~/.ssh
+#                echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+#                chmod 600 ~/.ssh/id_rsa
+#
+#                ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_PUBLIC_IP }} << EOF
+#
+#                    docker stop catalogs-handler-739204 || true
+#                    docker rm catalogs-handler-739204 || true
+#
+#                    docker pull ${{ env.CONTAINER_REGISTRY }}:latest
+#
+#                    docker run -d --name catalogs-handler-739204 \
+#                    -e AWS_BUCKET_NAME=${{ env.AWS_BUCKET_NAME }} \
+#                    -e CLIENTS_TABLE_NAME=${{ env.CLIENTS_TABLE_NAME }} \
+#                    -e PRODUCTS_TABLE_NAME=${{ env.PRODUCTS_TABLE_NAME }} \
+#                    -e ADDRESSES_TABLE_NAME=${{ env.ADDRESSES_TABLE_NAME }} \
+#                    -p 3001:3001 \
+#                    ${{ env.CONTAINER_REGISTRY }}:latest
+#
+#                    docker logs catalogs-handler-739204
+#                EOF
