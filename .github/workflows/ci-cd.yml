@@ -9,6 +9,11 @@ env:
     IMAGE_NAME: catalogs-handler-739204
     CONTAINER_REGISTRY: 932065333859.dkr.ecr.us-east-1.amazonaws.com/catalogs-handler-739204
 
+    AWS_BUCKET_NAME: ${{ vars. AWS_BUCKET_NAME }}
+    CLIENTS_TABLE_NAME: ${{ vars.CLIENTS_TABLE_NAME }}
+    PRODUCTS_TABLE_NAME: ${{ vars.PRODUCTS_TABLE_NAME }}
+    ADDRESSES_TABLE_NAME: ${{ vars.ADDRESSES_TABLE_NAME }}
+
 jobs: 
     build-and-deploy:
         runs-on: ubuntu-latest
