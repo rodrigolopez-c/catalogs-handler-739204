@@ -45,8 +45,8 @@ jobs:
 
                 ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
 
-                    docker stop catalogs-handler || true
-                    docker rm catalogs-handler || true
+                    docker stop catalogs-handler-739204 || true
+                    docker rm catalogs-handler-739204 || true
 
                     docker pull ${{ env.CONTAINER_REGISTRY }}:latest
 
