@@ -9,7 +9,7 @@ env:
     IMAGE_NAME: catalogs-handler-739204
     CONTAINER_REGISTRY: 932065333859.dkr.ecr.us-east-1.amazonaws.com/catalogs-handler-739204
 
-    AWS_BUCKET_NAME: ${{ vars. AWS_BUCKET_NAME }}
+    AWS_BUCKET_NAME: ${{ vars.AWS_BUCKET_NAME }}
     CLIENTS_TABLE_NAME: ${{ vars.CLIENTS_TABLE_NAME }}
     PRODUCTS_TABLE_NAME: ${{ vars.PRODUCTS_TABLE_NAME }}
     ADDRESSES_TABLE_NAME: ${{ vars.ADDRESSES_TABLE_NAME }}
@@ -55,5 +55,11 @@ jobs:
 
                     docker pull ${{ env.CONTAINER_REGISTRY }}:latest
 
-                    docker run -d --name catalogs-handler -p 3001:3001 ${{ env.CONTAINER_REGISTRY }}: latest
+                    docker run -d --name catalogs-handler-739204 \
+                    -e AWS_BUCKET_NAME=${{ env.AWS_BUCKET_NAME }} \
+                    -e CLIENTS_TABLE_NAME=${{ env.CLIENTS_TABLE_NAME }} \
+                    -e PRODUCTS_TABLE_NAME=${{ env.PRODUCTS_TABLE_NAME }} \
+                    -e ADDRESSES_TABLE_NAME=${{ env.ADDRESSES_TABLE_NAME }} \
+                    -p 3001:3001 \
+                    ${{ env.CONTAINER_REGISTRY }}:latest
                 EOF

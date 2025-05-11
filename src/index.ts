@@ -8,12 +8,12 @@ const app = express();
 
 app.use(routes);
 
-const port = process.env.PORT || 3001;
+const port = parseInt(process.env.PORT || '3001', 10);
 
 app.get('', (req: Request, res: Response) => {
     res.send('Api works');
 });
 
-app.listen(port, () => {
-    console.log(`App is running in port ${port}`);
+app.listen(port, '0.0.0.0', () => {
+    console.log(`App is running on port ${port}`);
 });
